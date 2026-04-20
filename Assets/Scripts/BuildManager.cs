@@ -1,28 +1,29 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildManager : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            PlaceTower();
+            HandleClick();
         }
     }
 
-    void PlaceTower()
+    void HandleClick()
     {
-        if (TowerShop.instance.selectedTowerPrefab == null)
-            return;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-        if (!GameManager.instance.SpendMoney(TowerShop.instance.towerCost))
+        if (hit.collider != null)
         {
-            Debug.Log("Not enough money!");
-            return;
+            TowerPlacement placement = hit.collider.GetComponent<TowerPlacement>();
+
+            if (placement != null)
+            {
+                placement.PlaceTower();
+            }
         }
-
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Instantiate(TowerShop.instance.selectedTowerPrefab, mousePos, Quaternion.identity);
     }
 }
