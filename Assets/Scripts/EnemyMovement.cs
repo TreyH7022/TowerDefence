@@ -4,7 +4,8 @@ public class EnemyMovement : MonoBehaviour
 {
     public Transform[] waypoints;
     public float speed = 3f;
-
+    public float baseSpeed = 3f;
+    
     private int waypointIndex = 0;
 
     void Start() 
@@ -24,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
         FollowPath();
     }
 
-    public void Initialize(Transform[] assignedWaypoints)
+    public void Initialize(Transform[] assignedWaypoints, float speedMultiplier = 1f)
     {
         waypoints = assignedWaypoints;
 
@@ -33,6 +34,8 @@ public class EnemyMovement : MonoBehaviour
             Debug.LogError("Waypoints not assigned!");
             return;
         }
+
+        speed = baseSpeed * speedMultiplier;
 
         transform.position = waypoints[0].position;
     }
