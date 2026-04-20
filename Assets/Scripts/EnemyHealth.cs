@@ -22,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        GameManager.instance.AddMoney(10);
         Destroy(gameObject);
     }
 }
