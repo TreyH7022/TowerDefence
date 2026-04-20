@@ -8,26 +8,21 @@ public class EnemySpawner : MonoBehaviour
     public Transform[] waypoints;
     public int waveNumber = 1;
     public float timeBetweenWaves = 5f;
+    public GameObject startWaveButton;
 
     private float countdown = 2f;
     private bool isSpawning = false;
+    private bool wavesActive = false;
 
     void Update()
     {
-        if (countdown <= 0f && !isSpawning)
-        {
-            StartCoroutine(SpawnWave());
-            countdown = timeBetweenWaves;
-        }
-
-        countdown -= Time.deltaTime;
+        if (countdown > 0f)
+            countdown -= Time.deltaTime;
     }
 
     IEnumerator SpawnWave()
     {
-        isSpawning = true; 
-
-        Debug.Log("Starting Wave " + waveNumber);
+        isSpawning = true;
 
         int enemiesThisWave = 5 + (waveNumber * 2);
 
@@ -37,9 +32,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        waveNumber++;
-
-        isSpawning = false; 
+        isSpawning = false;
     }
 
     void SpawnEnemy()
@@ -50,5 +43,27 @@ public class EnemySpawner : MonoBehaviour
         movement.Initialize(waypoints);
 
         movement.speed += waveNumber * 0.5f;
+    }
+
+    public void StartWaves()
+    {
+        if (wavesActive) return;
+
+        wavesActive = true;
+        startWaveButton.SetActive(false);
+
+        StartCoroutine(WaveLoop());
+    }
+
+    IEnumerator WaveLoop()
+    {
+        while (true)
+        {
+            yield return StartCoroutine(SpawnWave());
+
+            waveNumber++;
+
+            yield return new WaitForSeconds(timeBetweenWaves);
+        }
     }
 }

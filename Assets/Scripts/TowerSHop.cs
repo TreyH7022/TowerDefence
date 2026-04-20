@@ -6,6 +6,7 @@ public class TowerShop : MonoBehaviour
 
     public GameObject selectedTowerPrefab;
     public int towerCost = 50;
+    public GameObject fastTowerPrefab;
 
     void Awake()
     {
@@ -17,6 +18,12 @@ public class TowerShop : MonoBehaviour
     public void SelectBasicTower()
     {
         selectedTowerPrefab = basicTowerPrefab;
+        towerCost = 100;
+    }
+
+    public void SelectFastTower()
+    {
+        selectedTowerPrefab = fastTowerPrefab;
         towerCost = 50;
     }
 }

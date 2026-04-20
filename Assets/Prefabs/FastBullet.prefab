@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 304248601429104104}
   - component: {fileID: 8373879110093043990}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: FastBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a477ef89a35644eb2918d60615ef11e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  speed: 15
-  damage: 3
+  speed: 10
+  damage: 1

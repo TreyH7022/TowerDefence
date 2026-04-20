@@ -5,7 +5,7 @@ public class EnemyMovement : MonoBehaviour
     public Transform[] waypoints;
     public float speed = 3f;
     public float baseSpeed = 3f;
-    
+
     private int waypointIndex = 0;
 
     void Start() 
@@ -46,6 +46,10 @@ public class EnemyMovement : MonoBehaviour
         {
             GameManager.instance.TakeDamage(1);
             Destroy(gameObject);
+            if (GameManager.instance.playerHealth <= 0)
+            {
+                GameManager.instance.GameOver();
+            }
             return;
         }
 

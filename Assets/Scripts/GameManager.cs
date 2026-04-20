@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    public GameObject gameOverPanel;
     public int playerHealth = 10;
     public int money = 100;
 
@@ -35,5 +36,17 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
