@@ -4,6 +4,7 @@ public class TowerPlacement : MonoBehaviour
 {
     public bool isOccupied = false;
     public Transform buildPoint;
+    public AudioClip buildSound; 
 
     public void PlaceTower()
     {
@@ -23,6 +24,11 @@ public class TowerPlacement : MonoBehaviour
         }
 
         Instantiate(TowerShop.instance.selectedTowerPrefab, buildPoint.position, Quaternion.identity);
+
+        if (buildSound != null)
+        {
+            AudioSource.PlayClipAtPoint(buildSound, buildPoint.position);
+        }
 
         isOccupied = true;
     }

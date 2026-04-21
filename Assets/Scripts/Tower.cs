@@ -4,11 +4,18 @@ public class Tower : MonoBehaviour
 {
     public float range = 5f;
     public float fireRate = 1f;
+    public AudioClip shootSound;
 
+    private AudioSource audioSource;
     private float fireCountdown = 0f;
     private Transform target;
     public GameObject bulletPrefab;
     public Transform firePoint;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -49,12 +56,14 @@ public class Tower : MonoBehaviour
 
     void Shoot()
     {
+
+        if (shootSound != null)
+            audioSource.PlayOneShot(shootSound);
+
         GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
         if (bullet != null)
-        {
             bullet.Seek(target);
-        }
     }
 }

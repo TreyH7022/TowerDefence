@@ -4,6 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 10f;
     private float currentHealth;
+    public AudioClip deathSound;
 
     void Start()
     {
@@ -22,7 +23,12 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+
+        if (deathSound != null)
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        
         GameManager.instance.AddMoney(10);
         Destroy(gameObject);
     }
+
 }
